@@ -1,131 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>7eclipses - Offers Live</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7eclipses | Official Store</title>
 <style>
-body{margin:0;background:#0a0a0a;color:#fff;font-family:Arial;padding-bottom:90px}
-header{padding:25px;text-align:center;border-bottom:1px solid #222}
-.offer-strip{background:#00ff88;color:#000;padding:8px;text-align:center;font-weight:bold;font-size:13px;animation:blink 1s infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.7}}
-.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;padding:20px;max-width:1200px;margin:auto}
-.card{background:#141414;border-radius:16px;padding:14px;border:1px solid #222}
-.card img{width:100%;height:300px;object-fit:cover;border-radius:12px;background:#1a1a1a}
-.price{color:#00ff88;font-weight:bold;font-size:18px;margin:6px 0}
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700&family=Inter:wght@400;600&display=swap');
+body{margin:0;background:#080808;color:#fff;font-family:'Inter',sans-serif;padding-bottom:90px}
+.offer-strip{background:#CCFF00;color:#000;padding:10px;text-align:center;font-weight:800;font-size:13px;letter-spacing:1px}
+header{padding:35px 20px;text-align:center;border-bottom:1px solid #1a1a1a}
+header h1{font-family:'Syne',sans-serif;font-size:42px;letter-spacing:6px;margin:0}
+header p{opacity:0.6;margin-top:8px;font-size:14px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px;padding:25px;max-width:1250px;margin:auto}
+.card{background:#111;border:1px solid #222;border-radius:20px;padding:14px;transition:0.3s}
+.card:hover{border-color:#333;transform:translateY(-4px)}
+.card img{width:100%;height:340px;object-fit:cover;border-radius:14px;background:#1a1a1a}
+.card h3{font-family:'Syne',sans-serif;margin:12px 0 4px 0;font-size:15px}
+.price-row{display:flex;justify-content:space-between;align-items:center;margin:8px 0 12px 0}
+.price{color:#CCFF00;font-weight:800;font-size:19px}
+.mrp{opacity:0.4;text-decoration:line-through;font-size:13px;margin-left:6px}
 .btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.btn{padding:9px;border-radius:8px;border:1px solid #333;background:#1f1f1f;color:#fff;cursor:pointer}
-.btn.buy{background:#fff;color:#000;font-weight:bold;grid-column:span 2}
-.btn.wish.active{background:#ff2d55}
-.cart-bar{position:fixed;bottom:0;left:0;right:0;background:#111;border-top:1px solid #333;padding:12px 20px;display:flex;justify-content:space-between;align-items:center;z-index:99}
-.popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);background:#fff;color:#000;padding:25px;border-radius:20px;width:90%;max-width:380px;text-align:center;z-index:999;transition:0.3s;box-shadow:0 20px 60px rgba(0,0,0,0.5)}
+.btn{padding:10px;border-radius:10px;border:1px solid #2a2a2a;background:#1c1c1c;color:#fff;cursor:pointer;font-size:13px}
+.btn.buy{background:#fff;color:#000;font-weight:800;grid-column:span 2;font-size:14px}
+.btn.buy:hover{background:#CCFF00}
+.btn.wish.active{background:#ff2d55;border-color:#ff2d55}
+.cart-bar{position:fixed;bottom:0;left:0;right:0;background:#0f0f0f;border-top:1px solid #222;padding:14px 20px;display:flex;justify-content:space-between;align-items:center;z-index:99}
+.popup{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);background:#fff;color:#000;padding:28px;border-radius:22px;width:90%;max-width:380px;text-align:center;z-index:999;transition:0.25s}
 .popup.show{transform:translate(-50%,-50%) scale(1)}
-.popup h2{margin:0 0 10px 0}
-.popup .gift{font-size:40px}
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:none;z-index:998}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;z-index:998}
 .overlay.show{display:block}
 </style>
 </head>
 <body>
-
-<div class="offer-strip">🔥 OFFER: 2 Tees @ ₹1149 FREE Delivery + Gift | 3 Tees @ ₹1599 FREE + 2 Gifts</div>
-<header><h1>7ECLIPSES</h1><p>Select 2 or 3 for Best Offer</p></header>
-
+<div class="offer-strip">⚡ 1 TEE @ ₹649 | 2 TEES @ ₹1149 FREE DELIVERY + GIFT | 3 TEES @ ₹1599 FREE + 2 GIFTS</div>
+<header><h1>7ECLIPSES</h1><p>Minimal Drops • Premium Quality • COD Available</p></header>
 <div class="products" id="grid"></div>
-
-<div class="cart-bar">
-<div>🛒 <span id="count">0</span> Tees | <span id="totalText">₹0</span></div>
-<button onclick="checkout()" style="background:#00ff88;color:#000;padding:10px 20px;border-radius:10px;font-weight:bold;border:none;cursor:pointer">Checkout</button>
-</div>
-
+<div class="cart-bar"><div>🛒 <b id="count">0</b> Items | <span id="total">₹0</span></div><button onclick="checkout()" style="background:#CCFF00;color:#000;padding:11px 24px;border-radius:12px;font-weight:800;border:none;cursor:pointer">Checkout</button></div>
 <div class="overlay" id="overlay" onclick="closePop()"></div>
-<div class="popup" id="popup">
-<div class="gift" id="giftIcon">🎁</div>
-<h2 id="popTitle">Offer Unlocked!</h2>
-<p id="popDesc"></p>
-<p style="font-size:12px;opacity:0.6">COD Charge ₹70 | Online Payment ₹50</p>
-<button onclick="closePop()" style="background:#000;color:#fff;padding:10px 20px;border-radius:8px;border:none;margin-top:10px;cursor:pointer">Continue Shopping</button>
-<button onclick="closePop();checkout()" style="background:#00ff88;color:#000;padding:10px 20px;border-radius:8px;border:none;margin-top:10px;margin-left:8px;font-weight:bold;cursor:pointer">Pay Now</button>
-</div>
-
+<div class="popup" id="popup"><div style="font-size:45px" id="gift">🎁</div><h2 id="ptitle" style="margin:10px 0">Offer Unlocked</h2><p id="pdesc" style="line-height:1.5"></p><div style="margin-top:14px"><button onclick="closePop()" style="padding:10px 18px;border-radius:8px;border:1px solid #ddd;background:#fff;cursor:pointer">Continue</button><button onclick="closePop();checkout()" style="padding:10px 18px;border-radius:8px;border:none;background:#000;color:#fff;font-weight:700;margin-left:8px;cursor:pointer">Pay Now</button></div></div>
 <script>
-const PAY_LINK = "https://razorpay.me/@7eclipses";
+const PAY_LINK="https://razorpay.me/@7eclipses";
 const products=[
-["Minimal-Whale-Logo-black.jpeg","Minimal Whale Black"],["Minimal-Whale-Logo-white.jpeg","Minimal Whale White"],
-["My-EGO-is-protaction-black.jpeg","My EGO Black"],["My-EGO-is-protaction-white.jpeg","My EGO White"],
-["genial-man-black.jpeg","Gentle Man Black"],["gental-mon-white.jpeg","Gentle Man White"],
-["apna-haq-black.jpeg","Apna HAQ Black"],["apna-haq-white.jpeg","Apna HAQ White"],
-["rainy-days-black.jpeg","Rainy Days Black"],["rainy-days-white.jpeg","Rainy Days White"],
-["just-be-yourself-black (2).jpeg","Just Be Yourself Black"],["just-be-yourself-white.jpeg","Just Be Yourself White"],
-["be-strong-lavender (2).jpeg","Be Strong Lavender"],["be-strong-white.jpeg","Be Strong White"]
+["Minimal-Whale-Logo-black.jpeg","Minimal Whale - Black"],["Minimal-Whale-Logo-white.jpeg","Minimal Whale - White"],
+["My-EGO-is-protaction-black.jpeg","My EGO - Black"],["My-EGO-is-protaction-white.jpeg","My EGO - White"],
+["genial-man-black.jpeg","Gentle Man - Black"],["gental-mon-white.jpeg","Gentle Man - White"],
+["apna-haq-black.jpeg","Apna HAQ - Black"],["apna-haq-white.jpeg","Apna HAQ - White"],
+["rainy-days-black.jpeg","Rainy Days - Black"],["rainy-days-white.jpeg","Rainy Days - White"],
+["just-be-yourself-black (2).jpeg","Just Be Yourself - Black"],["just-be-yourself-white.jpeg","Just Be Yourself - White"],
+["be-strong-lavender (2).jpeg","Be Strong - Lavender"],["be-strong-white.jpeg","Be Strong - White"]
 ];
-
 let cart=[];
 const grid=document.getElementById('grid');
 products.forEach(p=>{
-grid.innerHTML+=`<div class="card"><img src="${p[0]}"><h3>${p[1]}</h3><div class="price">₹599</div><div class="btns"><button class="btn wish" onclick="addCart(this,'${p[1]}')">♡ Wishlist</button><button class="btn" onclick="shareP('${p[1]}')">↗ Share</button><button class="btn buy" onclick="buySingle('${p[1]}')">Buy Now</button></div></div>`;
+grid.innerHTML+=`<div class="card"><img src="${p[0]}"><h3>${p[1]}</h3><div class="price-row"><div class="price">₹599 <span class="mrp">₹999</span></div><div style="font-size:11px;opacity:0.5">FREE SIZE</div></div><div class="btns"><button class="btn wish" onclick="addCart(this,'${p[1]}')">♡ Wishlist</button><button class="btn" onclick="shareP('${p[1]}')">↗ Share</button><button class="btn buy" onclick="buySingle('${p[1]}')">Buy Now - ₹599</button></div></div>`;
 });
-
 function getOffer(n){
-if(n==0) return {total:0,msg:"",title:""};
-if(n==1) return {total:649, save:0, title:"1 Tee Added", msg:"Add 1 more to get at ₹1149 FREE Delivery + 1 Free Gift 🎁<br><br><b>Current: ₹599 + ₹50 Online = ₹649</b><br>or ₹669 on COD", gift:"🛍️"};
-if(n==2) return {total:1149, save:49, title:"2 Tees Offer Unlocked! 🔥", msg:"You Saved ₹49!<br><b>2 Tees = ₹1149</b><br>FREE Delivery + 1 Free Gift 🎁<br><br>COD: ₹1149 | Online: ₹1149", gift:"🎁"};
-if(n>=3){
-let sets=Math.floor(n/3); let rem=n%3;
-let total=sets*1599;
-let msg=`${sets*3} Tees = ₹${total} + `;
-if(rem==1){total+=649; msg+=`1 Tee = ₹649 | Total ₹${total}`;}
-else if(rem==2){total+=1149; msg+=`2 Tees = ₹1149 | Total ₹${total}`;}
-else{msg=`${n} Tees = ₹${total}<br>FREE Delivery + ${n>=3? (sets*2 + (rem==2?1:0)) :0} Free Gifts`;}
-if(n==3) return {total:1599, save:198, title:"MEGA OFFER! 3 @ ₹1599 🎉", msg:"Biggest Saving ₹198!<br><b>3 Tees = ₹1599</b><br>FREE Delivery + 2 Free Gifts 🎁🎁", gift:"🎉"};
-return {total:total, save:0, title:`${n} Tees Offer`, msg:msg+"<br><b>Pay: ₹"+total+"</b>", gift:"🎁"};
+if(n==0) return {total:0};
+if(n==1) return {total:649,save:0,title:"1 Tee Added",msg:"Add 1 more to unlock<br><b>2 Tees @ ₹1149 FREE Delivery + 1 Gift</b><br><br>Current: ₹599 + ₹50 Online = ₹649 (₹669 COD)",gift:"🛍️"};
+if(n==2) return {total:1149,save:49,title:"2 Tees Offer Unlocked! 🔥",msg:"You Saved ₹49<br><b>2 Tees = ₹1149</b><br>FREE Delivery + 1 Free Gift 🎁",gift:"🎁"};
+if(n==3) return {total:1599,save:198,title:"MEGA 3 @ ₹1599 🎉",msg:"Biggest Saving ₹198<br><b>3 Tees = ₹1599</b><br>FREE Delivery + 2 Free Gifts 🎁🎁",gift:"🎉"};
+let sets=Math.floor(n/3);let rem=n%3;let total=sets*1599;if(rem==1)total+=649;if(rem==2)total+=1149;
+return {total:total,title:`${n} Tees in Cart`,msg:`Total for ${n} Tees = <b>₹${total}</b><br>FREE Delivery + Gifts Included`,gift:"🎁"};
 }
-}
-
 function addCart(btn,name){
 if(cart.includes(name)){cart=cart.filter(x=>x!==name);btn.classList.remove('active');btn.innerHTML='♡ Wishlist';}
 else{cart.push(name);btn.classList.add('active');btn.innerHTML='♥ Added';showOffer();}
 updateBar();
 }
-
-function updateBar(){
-let offer=getOffer(cart.length);
-document.getElementById('count').innerText=cart.length;
-document.getElementById('totalText').innerText=cart.length==0?"₹0":"₹"+offer.total + (offer.save?` (Save ₹${offer.save})`:"");
-}
-
-function showOffer(){
-let n=cart.length;
-if(n==0) return;
-let offer=getOffer(n);
-document.getElementById('giftIcon').innerText=offer.gift;
-document.getElementById('popTitle').innerHTML=offer.title;
-document.getElementById('popDesc').innerHTML=offer.msg;
-document.getElementById('popup').classList.add('show');
-document.getElementById('overlay').classList.add('show');
-}
-
+function updateBar(){let o=getOffer(cart.length);document.getElementById('count').innerText=cart.length;document.getElementById('total').innerText=cart.length==0?"₹0":"₹"+o.total;}
+function showOffer(){let o=getOffer(cart.length);if(cart.length==0)return;document.getElementById('gift').innerText=o.gift;document.getElementById('ptitle').innerHTML=o.title;document.getElementById('pdesc').innerHTML=o.msg;document.getElementById('popup').classList.add('show');document.getElementById('overlay').classList.add('show');}
 function closePop(){document.getElementById('popup').classList.remove('show');document.getElementById('overlay').classList.remove('show');}
-
-function buySingle(name){
-cart=[name];
-updateBar();
-showOffer();
-}
-
-function checkout(){
-if(cart.length==0){alert('Pehle product add karo');return;}
-let offer=getOffer(cart.length);
-let confirmMsg=`Your Order:\n${cart.join('\n')}\n\nTotal: ₹${offer.total}\n\nCOD Charge: ₹70 extra\nOnline: ₹50 extra (already included for 1 Tee, FREE for 2/3)\n\nYou will be redirected to Razorpay to pay ₹${offer.total}\n\nClick OK to Pay`;
-if(confirm(confirmMsg)){
-window.open(PAY_LINK,'_blank');
-}
-}
-
-function shareP(name){
-let t=`${name} - Only ₹599! 2 @1149, 3 @1599 FREE Delivery + Gifts on 7eclipses: ${location.href}`;
-if(navigator.share){navigator.share({title:name,text:t,url:location.href});}
-else{navigator.clipboard.writeText(t);alert('Link Copied!');}
-}
+function buySingle(name){cart=[name];updateBar();showOffer();}
+function checkout(){if(cart.length==0){alert('Pehle product add karo');return;}let o=getOffer(cart.length);if(confirm(`Order: ${cart.join(', ')}\n\nTotal to Pay: ₹${o.total}\n\nRedirecting to Razorpay...\nClick OK`)){window.open(PAY_LINK,'_blank');}}
+function shareP(name){let t=`${name} - ₹599 | 2 @1149 | 3 @1599 + Gifts on 7eclipses: ${location.href}`;if(navigator.share){navigator.share({title:name,text:t,url:location.href});}else{navigator.clipboard.writeText(t);alert('Link Copied!');}}
 </script>
 </body>
 </html>
