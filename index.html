@@ -1,81 +1,21 @@
-<!-- 7ECLIPSES - REVIEW CODE V2 - SAFE + PRODUCT WISE -->
-<div style="margin-top:25px; border-top:1px solid rgba(255,255,255,0.15); padding-top:20px; color:white; font-family:sans-serif;">
-<div id="reviews">
-<h3 style="font-size:13px; letter-spacing:1px;">REVIEWS ( <span id="reviewCount">0</span> ) <span id="avgRating" style="opacity:0.6; font-weight:normal; margin-left:8px;"></span></h3>
-<div id="reviewList" style="margin:12px 0;"></div>
-<div style="background:rgba(255,255,255,0.05); padding:12px; border-radius:10px;">
-<div id="starInput" style="font-size:24px; cursor:pointer; user-select:none;">
-<span data-s="1">☆</span><span data-s="2">☆</span><span data-s="3">☆</span><span data-s="4">☆</span><span data-s="5">☆</span>
+<!-- 7ECLIPSES - PRICE + WISHLIST + SHARE + REVIEWS - START -->
+<div id="seven-eclipse-meta" style="max-width:800px; margin:20px auto; padding:16px; color:white; font-family:Inter,sans-serif; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.1); border-radius:12px;">
+  <div style="display:flex; align-items:center; gap:12px; flex-wrap:wrap;">
+    <div>
+      <div style="display:flex; align-items:baseline; gap:10px;">
+        <span style="font-size:26px; font-weight:800;">₹599</span>
+        <span style="font-size:14px; opacity:0.5; text-decoration:line-through;">₹1299</span>
+        <span style="background:white; color:black; font-size:11px; font-weight:800; padding:4px 7px; border-radius:4px;">53% OFF</span>
+      </div>
+      <div style="font-size:11px; opacity:0.6; margin-top:4px;">Inclusive of all taxes • Free Delivery</div>
+    </div>
+    <div style="margin-left:auto; display:flex; gap:8px;">
+      <button id="wishBtn">♡ Wishlist</button>
+      <button id="shareBtn">↗ Share</button>
+    </div>
+  </div>
 </div>
-<input id="reviewName" placeholder="Your name" style="width:100%; padding:10px; margin-top:8px; background:black; border:1px solid #333; color:white; border-radius:6px; box-sizing:border-box;">
-<textarea id="reviewText" placeholder="Fit and comfort kaisa laga?" style="width:100%; padding:10px; margin-top:8px; background:black; border:1px solid #333; color:white; border-radius:6px; height:55px; box-sizing:border-box; resize:vertical;"></textarea>
-<button id="postBtn" style="margin-top:10px; width:100%; padding:12px; background:white; color:black; font-weight:bold; border-radius:8px; border:none; cursor:pointer;">POST REVIEW</button>
-</div>
-</div>
-</div>
-
-<script>
-(function(){
-  const productId = window.location.pathname; // har product ka alag reviews
-  const storageKey = '7e_reviews_' + productId;
-  let cs = 0; 
-  let rvs = JSON.parse(localStorage.getItem(storageKey) || '[]');
-
-  // XSS safe
-  function esc(s){
-    return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
-  }
-
-  const starsEl = document.querySelectorAll('#starInput span');
-  starsEl.forEach(s => {
-    s.addEventListener('click', () => setStars(parseInt(s.dataset.s)));
-  });
-
-  window.setStars = function(n){
-    cs = n; 
-    starsEl.forEach((s,i)=>{ s.textContent = i < n ? '★' : '☆'; });
-  }
-
-  function render(){
-    document.getElementById('reviewCount').textContent = rvs.length;
-    const avgEl = document.getElementById('avgRating');
-    if(rvs.length){
-      const avg = (rvs.reduce((a,b)=>a+b.stars,0)/rvs.length).toFixed(1);
-      avgEl.textContent = `★ ${avg} / 5`;
-    } else {
-      avgEl.textContent = '';
-    }
-
-    const list = document.getElementById('reviewList');
-    if(rvs.length === 0){
-      list.innerHTML = '<div style="opacity:0.5; font-size:12px;">No reviews yet. Be first!</div>';
-    } else {
-      list.innerHTML = rvs.map(x => 
-        `<div style="padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.08);">
-          <div>${'★'.repeat(x.stars)}${'☆'.repeat(5-x.stars)} <b>${esc(x.name)}</b> <span style="opacity:0.5; font-size:11px;">${esc(x.date)}</span></div>
-          <div style="font-size:13px; opacity:0.85; margin-top:4px; line-height:1.4;">${esc(x.text)}</div>
-        </div>`
-      ).join('');
-    }
-  }
-
-  window.addReview = function(){
-    const nameEl = document.getElementById('reviewName');
-    const textEl = document.getElementById('reviewText');
-    const name = nameEl.value.trim() || '【entity-ARMY¦canonical_name=ARMY】';
-    const text = textEl.value.trim();
-    if(!text || cs==0){ alert('Star + review likho!'); return; }
-    if(text.length > 300){ alert('Review thoda chhota rakho - max 300 chars'); return; }
-
-    rvs.unshift({name:name.slice(0,20), text:text, stars:cs, date:new Date().toLocaleDateString('en-IN')});
-    localStorage.setItem(storageKey, JSON.stringify(rvs));
-    textEl.value=''; 
-    nameEl.value='';
-    cs=0;
-    starsEl.forEach(s=> s.textContent='☆');
-    render();
-  }
-
+<!-- Reviews section uske neeche hai -->
   document.getElementById('postBtn').addEventListener('click', addReview);
   render();
 })();
